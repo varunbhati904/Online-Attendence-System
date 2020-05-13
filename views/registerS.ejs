@@ -1,0 +1,77 @@
+<%- include('partials/header') %>
+<div class="container mt-5">
+  <h1>Register</h1>
+
+  <div class="row">
+    <div class="col-sm-8">
+      <div class="card">
+        <div class="card-body">
+
+          <!-- Makes POST request to /register route -->
+          <form action="/registers" method="POST">
+            <div class="form-group">
+              <div class="form-group">
+                <label for="name">Name</label>
+                <input type="text" class="form-control" name="name">
+              </div>
+              <div class="form-group">
+                <label for="fname">Father's Name</label>
+                <input type="text" class="form-control" name="fname">
+              </div>
+              <div class="form-group">
+                <label for="rollno">Roll No.</label>
+                <input type="text" class="form-control" name="rollno">
+              </div>
+              <div class="form-group">
+                <label for="dob">D.O.B</label>
+                <input type="date" class="form-control" name="dob">
+              </div>
+              <div class="form-group">
+              <label for="email">Email</label>
+              <input type="email" class="form-control" name="email">
+            </div>
+            <div class="form-group">
+              <label for="mob">Mobile Number</label>
+              <input type="number" class="form-control" name="mob">
+            </div>
+            <div class="form-group">
+              <label for="branch">Stream</label>
+              <input type="text" class="form-control" name="branch" list="stream">
+              <datalist id="stream">
+                <option value="Computer Science"></option>
+                <option value="Electronics & Communication"></option>
+                <option value="Information Technology"></option>
+              </datalist>
+            </div>
+            <div class="form-group">
+              <label for="year">Year</label>
+              <input type="text" class="form-control" name="year" list="year">
+              <datalist id="year">
+                <option value="First Year"></option>
+                <option value="Second Year"></option>
+                <option value="Third Year"></option>
+                <option value="Fourth Year"></option>
+              </datalist>
+            </div>
+            <button type="submit" class="btn btn-dark">Register</button>
+          </form>
+
+        </div>
+      </div>
+    </div>
+
+    <!-- <div class="col-sm-4">
+      <div class="card social-block">
+        <div class="card-body">
+          <a class="btn btn-block" href="/auth/google" role="button">
+            <i class="fab fa-google"></i>
+            Sign Up with Google
+          </a>
+        </div>
+      </div>
+    </div> -->
+
+  </div>
+</div>
+
+<%- include('partials/header') %>

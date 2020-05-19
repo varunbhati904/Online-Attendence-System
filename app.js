@@ -38,6 +38,10 @@ const teacherSchema = new mongoose.Schema({
   password: String,
   subject: String,
   email: String
+});
+
+const attendenceSchema = new.mongoose.Schema({
+
 })
 
 teacherSchema.plugin(passportLocalMongoose);
@@ -114,7 +118,19 @@ app.post("/registers",function(req,res){
 });
 
 app.get("/batch",function(req,res){
+  if(req.isAuthenticated()){
   res.render('batch');
+}else{
+  res.redirect("/login");
+}
+});
+
+app.get("/attendence",function(req,res){
+  if(req.isAuthenticated()){
+    res.render("Attendence");
+  }else {
+    res.redirect("/login");
+  }
 });
 
 
@@ -122,19 +138,25 @@ app.post("/batch",function(req,res){
   const stream = req.body.batch;
   const year = req.body.year;
 
-  Student.findOne({batch:stream , year:year},function(err,foundUsers){
+  Student.find({branch:stream , year:year},function(err,foundUsers){
     if(err){
       console.log(err);
     }else{
       if(foundUsers){
-        Name.push(foundUsers.name);
-        res.render("Attendence",{name: Name});
+        res.render("attendence",{name: foundUsers});
+        //console.log(foundUsers);
+        //res.send(foundUsers);
       }
       else{
         res.send("No student found");
       }
     }
-  })
+  });
+});
+
+app.post("/attendence",function(req,res){
+  const d = req.body.checkb;
+  const lno = req.body.lno;
 })
 
 

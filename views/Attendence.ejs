@@ -14,12 +14,23 @@
                 <label for="lno">Lecture No</label>
                 <input type="number" class="form-control" name="lno">
               </div>
-              <% for(var i=0;i<name.length;i++){ %>
+              <table>
                 <div class="form-group">
-                  <input type="checkbox">
-                  <p><%=name%></p>
-                </div>
-              <% } %>
+                  <tr>
+                    <td>Mark</td>
+                    <td>Students Name</td>
+                    <td>Roll Number</td>
+                  </tr>
+                <% for(var i=0;i<name.length;i++){ %>
+                  <div class="form-group">
+                <tr>
+                  <td><input type="checkbox" name="checkb"></td>
+                  <td><%=name[i].name%></td>
+                  <td><%=name[i].rollno%></td>
+                </tr>
+              </div>
+            <% } %>
+              </table>
 
             <button type="submit" class="btn btn-dark">Register</button>
           </form>

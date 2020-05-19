@@ -40,8 +40,12 @@ const teacherSchema = new mongoose.Schema({
   email: String
 });
 
-const attendenceSchema = new.mongoose.Schema({
-
+const attendenceSchema = new mongoose.Schema({
+ subid: String,
+ lno: Number,
+ date: Date,
+ name: Array,
+ rno: Array
 })
 
 teacherSchema.plugin(passportLocalMongoose);
@@ -157,6 +161,8 @@ app.post("/batch",function(req,res){
 app.post("/attendence",function(req,res){
   const d = req.body.checkb;
   const lno = req.body.lno;
+  const subid = req.body.subid;
+  const date = req.body.date;
 })
 
 

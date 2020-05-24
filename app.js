@@ -44,13 +44,13 @@ const attendenceSchema = new mongoose.Schema({
  subid: String,
  lno: Number,
  date: Date,
- name: Array,
  rno: Array
 })
 
 teacherSchema.plugin(passportLocalMongoose);
 const Teacher = mongoose.model("Teacher", teacherSchema);
 const Student = mongoose.model("Student", studentSchema);
+const Attendence = mongoose.model("Attendence", attendenceSchema);
 
 passport.use(Teacher.createStrategy());
 passport.serializeUser(Teacher.serializeUser());
@@ -78,7 +78,7 @@ app.post("/registert",function(req,res){
       console.log(err);
     }else{
       passport.authenticate("local")(req,res,function(){
-        res.redirect("/registert");
+        res.redirect("/batch");
       })
     }
   })
@@ -160,9 +160,19 @@ app.post("/batch",function(req,res){
 
 app.post("/attendence",function(req,res){
   const d = req.body.checkb;
-  const lno = req.body.lno;
-  const subid = req.body.subid;
-  const date = req.body.date;
+  var newat = new Attendence({
+    subid: req.body.lno,
+    lno: req.body.lno,
+    date: req.body.date,
+    rno: d,
+  });
+  newat.save(function(err){
+    if(err){
+      console.log(err);
+    }else{
+      res.redirect("/");
+    }
+  })
 })
 
 

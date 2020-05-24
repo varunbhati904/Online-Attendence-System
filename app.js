@@ -137,7 +137,6 @@ app.get("/attendence",function(req,res){
   }
 });
 
-
 app.post("/batch",function(req,res){
   const stream = req.body.batch;
   const year = req.body.year;
@@ -148,8 +147,6 @@ app.post("/batch",function(req,res){
     }else{
       if(foundUsers){
         res.render("attendence",{name: foundUsers});
-        //console.log(foundUsers);
-        //res.send(foundUsers);
       }
       else{
         res.send("No student found");
@@ -161,7 +158,7 @@ app.post("/batch",function(req,res){
 app.post("/attendence",function(req,res){
   const d = req.body.checkb;
   var newat = new Attendence({
-    subid: req.body.lno,
+    subid: req.body.subid,
     lno: req.body.lno,
     date: req.body.date,
     rno: d,
@@ -174,21 +171,24 @@ app.post("/attendence",function(req,res){
     }
   })
 })
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+app.get("/details",function(req,res){
+  res.render("details");
+})
+app.post("/details",function(req,res){
+  const subid = req.body.subid;
+  const rn = req.body.rno;
+  Attendence.find({subid: subid, rno: rn}, function(err, found) {
+    if(err){
+      console.log(err);
+    }else{
+      if(found){
+        res.render("detailp",{name:found, rn: rn});
+      }else{
+        console.log("not found");
+      }
+    }
+  });
+});
 
 
 app.listen(3000,function(){

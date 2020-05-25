@@ -7,7 +7,6 @@ const passportLocalMongoose = require("passport-local-mongoose");
 const mongoose = require('mongoose');
 
 const app = express();
-
 var Name =[];
 app.use(express.static("public"));
 app.use(bodyParser.urlencoded({extended: true}));
@@ -22,16 +21,18 @@ app.use(passport.session());
 
 mongoose.connect("mongodb://localhost:27017/Attend", {useNewUrlParser: true, useUnifiedTopology:true});
 mongoose.set("useCreateIndex", true);
-const studentSchema = new mongoose.Schema({
-  name: String,
-  fname: String,
-  rollno: String,
-  dob: Date,
-  email: String,
-  mob: Number,
-  branch: String,
-  year: String
-});
+  const studentSchema = new mongoose.Schema({
+    name: String,
+    fname: String,
+    rollno: String,
+    dob: Date,
+    email: String,
+    mob: Number,
+    branch: String,
+    year: String
+  });
+  var Student = mongoose.model("Student", studentSchema);
+  var mysort = {rollno: 1};
 const teacherSchema = new mongoose.Schema({
   name: String,
   username: String,
@@ -49,7 +50,7 @@ const attendenceSchema = new mongoose.Schema({
 
 teacherSchema.plugin(passportLocalMongoose);
 const Teacher = mongoose.model("Teacher", teacherSchema);
-const Student = mongoose.model("Student", studentSchema);
+
 const Attendence = mongoose.model("Attendence", attendenceSchema);
 
 passport.use(Teacher.createStrategy());
@@ -152,7 +153,7 @@ app.post("/batch",function(req,res){
         res.send("No student found");
       }
     }
-  });
+  }).sort(mysort);
 });
 
 app.post("/attendence",function(req,res){

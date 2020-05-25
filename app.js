@@ -125,6 +125,26 @@ app.post("/registers",function(req,res){
   });
 });
 
+app.get("/logins",function(req,res){
+  res.render("logins");
+});
+
+app.post("/logins",function(req,res){
+  const name = req.body.name;
+  const rol = req.body.rol;
+  Student.find({name: name, rollno: rol},function(err,found){
+    if (err) {
+      res.send(err);
+    } else {
+      if (found) {
+        res.render("registersp");
+      } else {
+        res.send("Not found!");
+      }
+    }
+  })
+})
+
 app.get("/batch",function(req,res){
   if(req.isAuthenticated()){
   res.render('batch');
@@ -213,20 +233,19 @@ app.post("/Attendence_Register",function(req,res){
   });
 });
 app.get("/data",function(req,res){
-  //if(req.isAuthenticated()){
+  if(req.isAuthenticated()){
     res.render("data");
-//  }else{
-  //  res.redirect("/login");
-  //}
+  }else{
+    res.redirect("/login");
+  }
 });
 app.post("/data",function(req,res){
   const rn = req.body.rn;
-  Student.find({rollno: rn},function(err,user){
+  Student.findOne({rollno: rn},function(err,user){
     if(err){
       console.log(err);
     }else{
       if(user){
-        console.log(user.name);
       res.render("datap", {name:user,rn: rn});
     }else{
       res.send("No Found");

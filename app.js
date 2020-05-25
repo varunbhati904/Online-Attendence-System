@@ -22,28 +22,27 @@ app.use(passport.session());
 mongoose.connect("mongodb://localhost:27017/Attend", {useNewUrlParser: true, useUnifiedTopology:true});
 mongoose.set("useCreateIndex", true);
   const studentSchema = new mongoose.Schema({
-    name: String,
+    name: {type:String, required: true},
     fname: String,
-    rollno: String,
+    rollno: {type:String, required: true},
     dob: Date,
-    email: String,
-    mob: Number,
-    branch: String,
-    year: String
+    email: {type:String, required: true},
+    mob: {type:Number,required: true},
+    branch: {type:String, required: true},
+    year: {type:String, required: true},
   });
   var Student = mongoose.model("Student", studentSchema);
   var mysort = {rollno: 1};
 const teacherSchema = new mongoose.Schema({
-  name: String,
-  username: String,
-  password: String,
-  subject: String,
-  email: String
+  name: {type:String, required: true},
+  username: {type:String, required: true},
+  password: {type:String, required: true},
+  email: {type:String, required: true}
 });
 
 const attendenceSchema = new mongoose.Schema({
- subid: String,
- lno: Number,
+ subid: {type:String, required: true},
+ lno: {type:Number,required: true},
  date: Date,
  rno: Array
 })
@@ -74,7 +73,11 @@ app.get("/login",function(req,res){
 });
 
 app.post("/registert",function(req,res){
-  Teacher.register({name:req.body.name, username:req.body.username, email:req.body.email, subject:req.body.subject}, req.body.password, function(err){
+  Teacher.register({
+    name:req.body.name,
+    username:req.body.username,
+    email:req.body.email
+  }, req.body.password, function(err){
     if(err){
       console.log(err);
     }else{
@@ -96,7 +99,7 @@ app.post("/login",function(req,res){
       res.redirect("/login");
     } else {
       passport.authenticate("local") (req,res,function(){
-        res.render("batch");
+        res.render("loginp");
       });
     }
   });
@@ -117,7 +120,7 @@ app.post("/registers",function(req,res){
     if(err){
       console.log(err);
     }else{
-      res.redirect("/");
+      res.render("registersp");
     }
   });
 });
@@ -190,6 +193,48 @@ app.post("/details",function(req,res){
     }
   });
 });
+
+app.get("/Attendence_Register",function(req,res){
+  if(req.isAuthenticated()){
+  res.render("atr");
+}else{
+  res.redirect("/login");
+}
+});
+
+app.post("/Attendence_Register",function(req,res){
+  const sub = req.body.subid;
+  Attendence.find({subid: sub},function(err,found){
+    if(err){
+      console.log(err);
+    }else{
+      res.render("atrp",{name: found});
+    }
+  });
+});
+app.get("/data",function(req,res){
+  //if(req.isAuthenticated()){
+    res.render("data");
+//  }else{
+  //  res.redirect("/login");
+  //}
+});
+app.post("/data",function(req,res){
+  const rn = req.body.rn;
+  Student.find({rollno: rn},function(err,user){
+    if(err){
+      console.log(err);
+    }else{
+      if(user){
+        console.log(user.name);
+      res.render("datap", {name:user,rn: rn});
+    }else{
+      res.send("No Found");
+    }
+
+    }
+  })
+})
 
 
 app.listen(3000,function(){

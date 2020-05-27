@@ -36,7 +36,7 @@ mongoose.set("useCreateIndex", true);
 const teacherSchema = new mongoose.Schema({
   name: {type:String, required: true},
   username: {type:String, required: true},
-  password: {type:String, required: true},
+  password: String,
   email: {type:String, required: true}
 });
 
@@ -82,7 +82,7 @@ app.post("/registert",function(req,res){
       console.log(err);
     }else{
       passport.authenticate("local")(req,res,function(){
-        res.redirect("/batch");
+        res.render("loginp");
       })
     }
   })
@@ -251,6 +251,33 @@ app.post("/data",function(req,res){
       res.send("No Found");
     }
 
+    }
+  })
+});
+app.get("/calcutad",function(req,res){
+  res.render("calcuted");
+});
+
+app.post("/calcutad",function(req,res){
+  const branch = req.body.branch;
+  const year = req.body.year;
+  const subid = req.body.subid;
+  Student.find({branch: branch,year:year},function(err,found){
+    if(err){
+      console.log(err);
+    }else{
+      if(found){
+        console.log(found.rollno);
+        Attendence.findOne({subid:subid},function(err,found1){
+          if(err){
+            console.log(err);
+          }else{
+            res.render("calcutedp",{name:found,roll:found1})
+          }
+        })
+      }else{
+        res.send("Not found");
+      }
     }
   })
 })

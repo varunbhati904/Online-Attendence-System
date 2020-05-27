@@ -1,0 +1,57 @@
+<%- include('partials/header') %>
+
+<div class="container mt-5">
+  <h1>Details For Student</h1>
+
+  <div class="row">
+    <div class="col-sm-8">
+      <div class="card">
+        <div class="card-body">
+
+          <!-- Makes POST request to /login route -->
+          <form action="/calcutad" method="POST">
+            <div class="form-group">
+              <label for="batch">Stream</label>
+              <input type="text" class="form-control" name="batch" list="stream">
+              <datalist id="stream">
+                <option value="Computer Science"></option>
+                <option value="Electronics & Communication"></option>
+                <option value="Information Technology"></option>
+              </datalist>
+            </div>
+            <div class="form-group">
+              <label for="password">Year</label>
+              <input type="text" class="form-control" name="year" list="year">
+              <datalist id="year">
+                <option value="First Year"></option>
+                <option value="Second Year"></option>
+                <option value="Third Year"></option>
+                <option value="Fourth Year"></option>
+              </datalist>
+            </div>
+            <div class="form-group">
+              <label for="Subid">Subject ID</label>
+              <input type="text" class="form-control" name="subid">
+            </div>
+            <button type="submit" class="btn btn-dark">Process</button>
+          </form>
+
+        </div>
+      </div>
+    </div>
+
+    <!-- <div class="col-sm-4">
+      <div class="card">
+        <div class="card-body">
+          <a class="btn btn-block" href="/auth/google" role="button">
+            <i class="fab fa-google"></i>
+            Sign In with Google
+          </a>
+        </div>
+      </div>
+    </div> -->
+
+  </div>
+</div>
+
+<%- include('partials/footer') %>

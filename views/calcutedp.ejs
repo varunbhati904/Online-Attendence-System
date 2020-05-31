@@ -3,16 +3,21 @@
   <h1> Attendance Page</h1>
 
   <div class="row">
-    <div class="col-sm-8">
+    <div class="col-sm-10">
       <div class="card">
         <div class="card-body">
-              <table>
+              <table class="table" {
+                constructor() {
+
+                }
+              }>
                 <div class="form-group">
                   <tr>
                     <td>&nbsp;&nbsp;&nbsp;&nbsp;Roll Number </td>
                     <td>&nbsp;&nbsp;&nbsp;&nbsp;Name </td>
                     <td>&nbsp;&nbsp;&nbsp;&nbsp;Total Lecture</td>
                     <td>&nbsp;&nbsp;&nbsp;&nbsp;Attendent Lectures </td>
+                    <td>&nbsp;&nbsp;&nbsp;&nbsp;Attendence Percentage </td>
                   </tr>
                 <% for(var i=0;i<name.length;i++){ %>
                   <div class="form-group">
@@ -20,13 +25,17 @@
                   <td>&nbsp;&nbsp;&nbsp;&nbsp;<%=name[i].rollno%></td>
                   <td>&nbsp;&nbsp;&nbsp;&nbsp;<%=name[i].name%></td>
                   <td>&nbsp;&nbsp;&nbsp;&nbsp;<%=roll.length%></td>
-                  <% const count =0; %>
-                  <%for(var j=0;j<roll.length;j++){%>
-                  <%if (name[i].rollno === roll[j].rno) {%>
-                  <%  count = count +1; %>
-                  <%} %>
-                  <%}%>
+                  <% var count =0; %>
+                  <% for(var j=0;j<roll.length;j++){ %>
+                    <% for(var k=0;k<roll[j].rno.length;k++){%>
+                      <% if(name[i].rollno === roll[j].rno[k]){ %>
+                        <% count = count +1; %>
+                    <%  } %>
+                    <% } %>
+                  <% } %>
                   <td>&nbsp;&nbsp;&nbsp;&nbsp;<%=count%></td>
+                  <% var per = (count/roll.length)*100; %>
+                  <td>&nbsp;&nbsp;&nbsp;&nbsp;<%=per%> </td>
                 </tr>
               </div>
             <% } %>

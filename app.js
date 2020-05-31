@@ -191,7 +191,7 @@ app.post("/attendence",function(req,res){
     if(err){
       console.log(err);
     }else{
-      res.redirect("/");
+      res.redirect("/loginp");
     }
   })
 })
@@ -201,17 +201,13 @@ app.get("/details",function(req,res){
 app.post("/details",function(req,res){
   const subid = req.body.subid;
   const rn = req.body.rno;
-  Attendence.find({subid: subid, rno: rn}, function(err, found) {
-    if(err){
-      console.log(err);
-    }else{
-      if(found){
-        res.render("detailp",{name:found, rn: rn});
-      }else{
-        console.log("not found");
-      }
-    }
-  });
+        Attendence.find({subid: subid},function(err,user){
+          if(err){
+            console.log(err);
+          }else{
+            res.render("detailp",{name: user, rn: rn});
+          }
+        })
 });
 
 app.get("/Attendence_Register",function(req,res){
@@ -267,11 +263,12 @@ app.post("/calcutad",function(req,res){
       console.log(err);
     }else{
       if(found){
-        console.log(found.rollno);
-        Attendence.findOne({subid:subid},function(err,found1){
+        console.log(found);
+        Attendence.find({subid:subid},function(err,found1){
           if(err){
             console.log(err);
           }else{
+            console.log(found1);
             res.render("calcutedp",{name:found,roll:found1})
           }
         })
@@ -279,7 +276,7 @@ app.post("/calcutad",function(req,res){
         res.send("Not found");
       }
     }
-  })
+  }).sort(mysort);
 })
 
 

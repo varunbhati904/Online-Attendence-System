@@ -13,17 +13,23 @@
                     <td>&nbsp;&nbsp;&nbsp;&nbsp;Date </td>
                   <!--  <td>&nbsp;&nbsp;&nbsp;&nbsp;Roll Number </td> -->
                   </tr>
+                  <% var count =0;%>
                 <% for(var i=0;i<name.length;i++){ %>
+                  <% for(var j=0;i<name[i].rno.length;j++){ %>
+                    <% if(rn === name[i].rno[j] ){ %>
                   <div class="form-group">
                 <tr>
                   <td>&nbsp;&nbsp;&nbsp;&nbsp;<%=name[i].lno%></td>
                   <td>&nbsp;&nbsp;&nbsp;&nbsp;<%=name[i].date%></td>
-                  <!--  <td>&nbsp;&nbsp;&nbsp;&nbsp;<%=name[i].rno%></td> -->
+                  <%=count= count+1;%>
                 </tr>
               </div>
+              <%}%>
+              <% } %>
             <% } %>
               </table>
               <h4>Total Attendance = <%=name.length%></h4>
+              <h4>Your Attendance = <%=count%></h4>
 
         </div>
       </div>

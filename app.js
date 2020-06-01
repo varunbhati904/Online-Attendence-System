@@ -120,7 +120,7 @@ app.post("/registers",function(req,res){
     if(err){
       console.log(err);
     }else{
-      res.render("registersp");
+      res.send("Thank You!");
     }
   });
 });
@@ -205,6 +205,7 @@ app.post("/details",function(req,res){
           if(err){
             console.log(err);
           }else{
+            console.log(user);
             res.render("detailp",{name: user, rn: rn});
           }
         })

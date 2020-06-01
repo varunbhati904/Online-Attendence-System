@@ -15,13 +15,13 @@
                   </tr>
                   <% var count =0;%>
                 <% for(var i=0;i<name.length;i++){ %>
-                  <% for(var j=0;i<name[i].rno.length;j++){ %>
-                    <% if(rn === name[i].rno[j] ){ %>
+                  <% for(var j=0;j<name[i].rno.length;j++){ %>
+                    <% if(rn == name[i].rno[j] ){ %>
                   <div class="form-group">
                 <tr>
                   <td>&nbsp;&nbsp;&nbsp;&nbsp;<%=name[i].lno%></td>
                   <td>&nbsp;&nbsp;&nbsp;&nbsp;<%=name[i].date%></td>
-                  <%=count= count+1;%>
+                  <%count= count+1;%>
                 </tr>
               </div>
               <%}%>
